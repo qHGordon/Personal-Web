@@ -5,75 +5,255 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weihan Xie - Personal Website</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        body, html {
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background-color: #0047AB; /* Your desired color */
         }
-        header {
-            background-color: #4a4a4a;
-            color: #ffffff;
-            text-align: center;
-            padding: 1rem;
+        .container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            height: 100vh; /* 100% of the viewport height */
+            width: 100vw;  /* 100% of the viewport width */
         }
-        nav {
-            background-color: #333;
-            color: #ffffff;
-            padding: 0.5rem;
+
+        .left-panel {
+            background-color: #0047AB; /* Navy blue */
+            color: white;
+            padding: 12rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 10px;
         }
-        nav ul {
-            list-style-type: none;
+
+        /* Right panel containing the image */
+        .right-panel {
+            display: flex;
+            justify-content: flex-end;
+            overflow: hidden;
+            background-color: #0047AB; /* Optional background color for right panel */
+            padding: 3rem;
+        }
+
+        /* Profile image styles */
+        .profile-image {
+            height: 100%;
+            width: auto;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+        /* Bottom panel below both left and right */
+
+        /* main {
+            
+            padding: 30px;
+        } */
+        main {
+            background-color: #e9ecf0;
+            }
+            section {
+            margin-bottom: 10px;
+            padding: 40px 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        /* List Styling for Projects and Contact Sections */
+        ul {
+            list-style: none;
             padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
+
+        li {
+            font-size: 1.2rem;
+            color: #555;
         }
-        nav ul li a {
-            color: #ffffff;
+
+        a {
+            color: #0071e3; /* Apple's iconic blue color */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #005bb5;
+        }
+
+        /* Project Section Styling */
+        #Projects ul li {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        #Projects ul li a {
+            font-size: 1.2rem;
+            color: #0071e3;
+        }
+
+        #Projects ul li a:hover {
+            color: #005bb5;
+        }
+
+        /* Contact Section */
+        #Contact ul li {
+            font-size: 1.2rem;
+        }
+
+        /* Button Hover Effects for CTA-like Links */
+        a:hover {
+            text-decoration: underline;
+            color: #005bb5;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            p, li {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 20px 15px;
+            }
+        }
+        #About p {
+                    font-size: 1.2rem;
+        text-align: justify;
+        color: #666;
+        max-width: 800px;
+        margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        p2{
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .cta-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hire-me {
+            background-color: white;
+            color: #0047AB;
+        }
+        .view-resume {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+        .social-icons {
+            margin-top: 2rem;
+        }
+        .social-icons a {
+            color: white;
+            margin-right: 1rem;
+            font-size: 1.5rem;
             text-decoration: none;
         }
-        main {
-            padding: 20px;
+        /* .menu-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        } */
+        .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
         }
-        footer {
-            background-color: #333;
-            color: #ffffff;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+
+        .social-icons a img {
+            width: 30px; /* Set a uniform size */
+            height: 30px;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1); /* Slight zoom effect on hover */
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Weihan Xie</h1>
-        <p>Full Stack Engneer | Web Developer | Designer | Creative Thinker</p>
-    </header>
-
-    <nav>
+    <div class="container">
+        <div class="left-panel">
+            <h2>HELLO !</h2>
+            <h1>I'm Weihan Xie</h1>
+            <p>A Full Stack Engneer | Web Developer | Designer | Creative Thinker.</p>
+            <div class="cta-buttons">
+                <button class="cta-button hire-me">HIRE ME</button>
+                <button class="cta-button view-resume">VIEW RESUME</button>
+            </div>
+            <div class="social-icons"><!-- LinkedIn icon -->  
+                <a href="https://www.linkedin.com/in/weihan-xie-8079911aa/" target="_blank">
+                    <img src="D:\media\icons\linkedin.png" alt="LinkedIn" width="30" height="30">
+                </a>
+                <a href="https://github.com/qHGordon" target="_blank"><!-- Github icon -->                          
+                    <img src="D:\media\icons\github.png" alt="GitHub" width="30" height="30">
+                </a>
+                <a href="mailto:weihanxie20@icloud.com" target="_blank"><!-- Email icon -->  
+                    <img src="D:\media\icons\send-mail.png" alt="Email" width="30" height="30">
+                </a>
+            </div>
+        </div>
+        <div class="right-panel">
+            <img src="D:\media\01edc78b561967248d79b04b8fde3eb0bcd5642d7f.jpg"alt="Weihan Xie" class="profile-image">
+        </div>
+    </div>
+    <!-- <div class="menu-icon">&#x2630;</div> -->
+    <!-- <nav></nav>
         <ul>
             <li><a href="#About">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#Projects">Projects</a></li>
+            <li><a href="#Contact">Contact</a></li>
         </ul>
-    </nav>
-
+    </nav> -->
     <main>
         <section id="About">
             <h2>About Me</h2>
-            <p>My name is Xie Weihan, and I am currently an undergraduate student pursuing a degree in Computer Science at Queen's University, with a focus on artificial intelligence. My academic interests lie in the intersection of AI and its practical applications across industries, particularly in the legal and economic sectors. Throughout my studies, I have gained valuable experience in algorithm design, problem-solving, and software development, including an independent web tool project that significantly improved operational efficiency at a company.
-
+            <p>
+                My name is Xie Weihan, and I am currently an undergraduate student pursuing a degree in Computer Science at Queen's University, with a focus on artificial intelligence. My academic interests lie in the intersection of AI and its practical applications across industries, particularly in the legal and economic sectors. Throughout my studies, I have gained valuable experience in algorithm design, problem-solving, and software development, including an independent web tool project that significantly improved operational efficiency at a company.
+            
                 In addition to my coursework, I have had the opportunity to work as a Research Assistant, where I conducted research on engineer and carbon emissions. I am passionate about exploring how emerging technologies, such as AI, can be leveraged to create innovative solutions in both technical and interdisciplinary fields.
-                
+            
                 I am eager to connect with like-minded professionals and explore opportunities where I can apply my skills, expand my knowledge, and contribute meaningfully to the field of computer science.
-                
-                </p>
+            </p>
         </section>
-
+    
         <section id="Projects">
             <h2>My Projects</h2>
             <ul>
@@ -82,8 +262,8 @@
                 <li>Project 3: [Brief description]</li>
             </ul>
         </section>
-
-        <section id="contact">
+    
+        <section id="Contact">
             <h2>Contact Me</h2>
             <ul>
                 <li>Email: <a href="mailto:weihanxie20@icloud.com">weihanxie20@icloud.com</a></li>
@@ -91,11 +271,8 @@
                 <li>GitHub: <a href="https://github.com/qHGordon" target="_blank">qHGordon</a></li>
             </ul>
         </section>
-        
     </main>
+    
 
-    <footer>
-        <p>&copy; 2024 Weihan Xie. All rights reserved.</p>
-    </footer>
 </body>
 </html>
