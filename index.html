@@ -254,7 +254,23 @@
                 I am eager to connect with like-minded professionals and explore opportunities where I can apply my skills, expand my knowledge, and contribute meaningfully to the field of computer science.
             </p>
         </section>
-    
+
+        <section id="notesSection">
+            <h2>我的笔记</h2>
+            <div id="notesContent"></div>
+        </section>
+
+        <script>
+            // 使用AJAX动态加载笔记内容
+            fetch('notes.html')
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    document.getElementById('notesContent').appendChild(doc.body);
+                });
+        </script>
+
         <section id="Projects">
             <h2>My Projects</h2>
             <ul>
