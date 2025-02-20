@@ -1,99 +1,103 @@
 <!DOCTYPE html>
 <html lang="zh">
-<link rel="stylesheet" href="../styles.css">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人笔记</title>
-    <!-- 引入Firebase JavaScript文件 -->
-    <script src="../firebase.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore-compat.js"></script>
+    <script src="firebase.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        #noteInput {
-            width: 300px;
-            padding: 8px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        .notes-container {
-            margin-top: 20px;
-        }
         .note-item {
-            background-color: white;
+            margin: 10px 0;
             padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 10px;
             cursor: pointer;
-            color: red;
-            font-size: 20px;
+        }
+        #noteInput {
+            padding: 8px;
+            margin-right: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #0047AB;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h2>📌 我的笔记</h2>
-    <input type="text" id="noteInput" placeholder="输入你的笔记...">
-    <button onclick="addNote()">添加笔记</button>
-    
-    <div class="notes-container">
-        <div id="notesList"></div>
+    <div>
+        <input type="text" id="noteInput" placeholder="输入你的笔记...">
+        <button onclick="addNote()">添加笔记</button>
     </div>
+    <div id="notesList"></div>
 
-    <script src="../firebase.js"></script>
     <script>
-        // 引入Firestore实例
-        const db = firebase.firestore();
+        // 读取笔记
+        function loadNotes() {
+            const notesList = document.getElementById("notesList");
+            notesList.innerHTML = "";
+            
+            db.collection("notes")
+                .orderBy("timestamp", "desc")
+                .onSnapshot((snapshot) => {
+                    notesList.innerHTML = "";
+                    snapshot.forEach((doc) => {
+                        const noteData = doc.data();
+                        const noteItem = document.createElement("div");
+                        noteItem.classList.add("note-item");
+                        noteItem.innerHTML = `
+                            <span>${noteData.content}</span>
+                            <span class="delete-btn" onclick="deleteNote('${doc.id}')">❌</span>
+                        `;
+                        notesList.appendChild(noteItem);
+                    });
+                });
+        }
 
+        // 添加笔记
         function addNote() {
             const noteInput = document.getElementById("noteInput");
             const noteText = noteInput.value.trim();
+            
             if (noteText) {
                 db.collection("notes").add({
                     content: noteText,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(() => {
+                })
+                .then(() => {
                     noteInput.value = "";
-                    loadNotes();
+                })
+                .catch((error) => {
+                    console.error("Error adding note: ", error);
+                    alert("添加笔记失败，请重试");
                 });
             }
         }
 
-        function loadNotes() {
-            const notesList = document.getElementById("notesList");
-            notesList.innerHTML = "";
-            db.collection("notes").orderBy("timestamp", "desc").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    const noteData = doc.data();
-                    const noteItem = document.createElement("div");
-                    noteItem.classList.add("note-item");
-                    noteItem.innerHTML = `
-                        <span>${noteData.content}</span>
-                        <span class="delete-btn" onclick="deleteNote('${doc.id}')">❌</span>
-                    `;
-                    notesList.appendChild(noteItem);
-                });
-            });
-        }
-
+        // 删除笔记
         function deleteNote(noteId) {
-            db.collection("notes").doc(noteId).delete().then(() => {
-                loadNotes();
-            });
+            db.collection("notes").doc(noteId).delete()
+                .catch((error) => {
+                    console.error("Error removing note: ", error);
+                    alert("删除笔记失败，请重试");
+                });
         }
 
-        // 页面加载时获取笔记
-        window.onload = loadNotes;
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', loadNotes);
     </script>
 </body>
 </html>
